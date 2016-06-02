@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 
 class CoursesPage extends React.Component {
+    // In the constructor we initialize state and call our bind functions
     constructor(props, context) {
         super(props, context);
 
@@ -15,6 +16,7 @@ class CoursesPage extends React.Component {
         this.onClickSave = this.onClickSave.bind(this);
     }
 
+    // Our child functions which are called by render ************
     onTitleChange(event) {
         const course = this.state.course;
         course.title = event.target.value;
@@ -28,7 +30,10 @@ class CoursesPage extends React.Component {
     courseRow(course, index) {
         return <div key={index}>{course.title}</div>
     }
+    // **********************************************************
 
+    // For simplicity the markup is inline, usually we would call
+    // child function with the markup
     render() {
         return (
             <div>
@@ -49,11 +54,13 @@ class CoursesPage extends React.Component {
     }
 }
 
+// Proptypes that provide our proptype validation
 CoursesPage.propTypes = {
     courses: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
 };
 
+// Our redux connect and related functions ******************
 function mapStateToProps(state, ownProps) {
     return {
         courses: state.courses
@@ -69,3 +76,4 @@ function mapDispatchToProps(dispatch) {
 // Exporting a component decorated by the react-redux connect function
 // The connect function is what we use to create components (container-components) that can interact with redux
 export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+// **********************************************************
